@@ -1,0 +1,2 @@
+// Delete records that match a criteria in a collection
+db.school.deleteMany( { "name" : "Holberton school" } );
