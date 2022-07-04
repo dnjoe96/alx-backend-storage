@@ -11,7 +11,7 @@ if __name__ == '__main__':
     post = the_logs.count_documents({"method": "POST"})
     put = the_logs.count_documents({"method": "PUT"})
     patch = the_logs.count_documents({"method": "PATCH"})
-    delete =  the_logs.count_documents({"method": "DELETE"})
+    delete = the_logs.count_documents({"method": "DELETE"})
     status = the_logs.count_documents({"path": "/status"})
     print(f"{total} logs\n\
             \rMethods:\n\
