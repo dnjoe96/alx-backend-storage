@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" Script to gather log summary from nginx logs """
 
 if __name__ == '__main__':
     from pymongo import MongoClient
@@ -6,19 +7,12 @@ if __name__ == '__main__':
     the_logs = client.logs.nginx
 
     total = the_logs.count_documents({})
-    # 94778
     get = the_logs.count_documents({"method": "GET"})
-    # 93842
     post = the_logs.count_documents({"method": "POST"})
-    # 229
     put = the_logs.count_documents({"method": "PUT"})
-    # 0
     patch = the_logs.count_documents({"method": "PATCH"})
-    # 0
-    delete =  the_logs.count_documents({"method": "DELETE"})
-    # 0
+    delete = the_logs.count_documents({"method": "DELETE"})
     status = the_logs.count_documents({"path": "/status"})
-    # 47415
     print(f"{total} logs\n\
             \rMethods:\n\
             method GET: {get}\n\
