@@ -13,11 +13,11 @@ if __name__ == '__main__':
     patch = the_logs.count_documents({"method": "PATCH"})
     delete = the_logs.count_documents({"method": "DELETE"})
     status = the_logs.count_documents({"path": "/status"})
-    print(f"{total} logs\n\
-            \rMethods:\n\
-            method GET: {get}\n\
-            method POST: {post}\n\
-            method PUT: {put}\n\
-            method PATCH: {patch}\n\
-            method DELETE: {delete}\n\
-            \r{status} status check")
+    print(f"{total} logs")
+    print(f"Methods:")
+    print(f"\tmethod GET: {get}")
+    print(f"\tmethod POST: {post}")
+    print(f"\tmethod PUT: {put}")
+    print(f"\tmethod PATCH: {patch}")
+    print(f"\tmethod DELETE: {delete}")
+    print(f"{status} status check")
