@@ -29,4 +29,5 @@ if __name__ == '__main__':
             "216.244.66.228"
             ]
     for ip in ip_list:
-        print('\t{}: {}'.format(ip, the_logs.count_documents({"ip": ip})))
+        val = the_logs.count_documents({"ip": ip})
+        print(f"\t{ip}: {val}")
