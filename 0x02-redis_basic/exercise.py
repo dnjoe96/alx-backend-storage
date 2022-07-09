@@ -22,6 +22,27 @@ def count_calls(method: Callable) -> Callable:
     return count_calls_wrapper
 
 
+def call_history(method: Callable) -> Callable:
+    """Decorator to store history of inputs and outputs of methods
+    Args:
+        method (Callable): variable representing decorated method
+    Returns:
+        wrapped method
+    """
+    @functools.wraps(method)
+    def call_history_wrapper(self, *args: Any, **kwargs: Any) -> Any:
+        """ Wrapper method for provided wrapped method """
+        self._redis.rpush(method.__qualname__ + ':inputs', str(args))
+        output = method(self, *args, **kwargs)
+        self._redis.rpush(
+            method.__qualname__ + ':outputs',
+            output
+        )
+        return output
+
+    return call_history_wrapper
+
+
 class Cache:
     """Cache class"""
     DB_VAL_TYPS = Union[str, bytes, int, float, None]
@@ -32,6 +53,7 @@ class Cache:
         self._redis.flushdb()
 
     @count_calls
+    @call_history
     def store(self, data: Union[bytes, float, int, str]) -> str:
         """A function that store data in a unique key
         Args:
