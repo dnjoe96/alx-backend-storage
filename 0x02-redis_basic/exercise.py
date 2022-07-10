@@ -43,6 +43,19 @@ def call_history(method: Callable) -> Callable:
     return call_history_wrapper
 
 
+def replay(function: Callable) -> None:
+    """The function to display the history of calls of a particular function"""
+    dredis = redis.Redis()
+    count = dredis.get(function.__qualname__).decode('utf-8')
+    print(f'Cache.store was called {count} times:')
+    outputs = dredis.lrange(function.__qualname__ + ':outputs', 0, -1)
+
+    for output in outputs:
+        input = dredis.get(output).decode('utf-8')
+        output = output.decode('utf-8')
+        print(f'Cache.store(*(\'{input}\',)) -> {output}')
+
+
 class Cache:
     """Cache class"""
     DB_VAL_TYPS = Union[str, bytes, int, float, None]
