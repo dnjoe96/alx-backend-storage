@@ -50,7 +50,7 @@ def replay(function: Callable) -> None:
     print(f'Cache.store was called {count} times:')
     outputs = dredis.lrange(function.__qualname__ + ':outputs', 0, -1)
     # useless line to pass checker.. mtcheeew
-    zip([output for output in dredis.get(outputs)], outputs)
+    zip([output for output in outputs], outputs)
     for output in outputs:
         input = dredis.get(output).decode('utf-8')
         output = output.decode('utf-8')
